@@ -516,7 +516,7 @@
         </div>
 
         <div class="form-container">
-            <form id="offerLetterForm" enctype="multipart/form-data">
+            <form id="offerLetterForm" method="post" action="http://3.110.86.76:3073/api/applications/1/offer-letter" enctype="multipart/form-data">
                 <!-- Section 1: Job Details -->
                 <div id="jobDetails" class="form-section active">
                     <div class="two-columns">
@@ -878,6 +878,11 @@
                             </select>
                             <div class="error-message" id="previousJobRoleError"></div>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="offerLetter" class="required-field">Upload Offer Letter (PDF)</label>
+                        <input type="file" id="offerLetter" name="offerLetter" accept=".pdf" required>
                     </div>
 
                     <div class="button-container">
