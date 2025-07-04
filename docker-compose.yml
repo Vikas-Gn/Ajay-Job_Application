@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres-job5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: new_employee_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5040:5432"
+    networks:
+      - ajaynet
+
+  backend:
+    build:
+      context: ./Backend
+    container_name: backend-job5
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: admin123
+      DB_NAME: new_employee_db
+      DB_PORT: 5432
+      PG_HOST: postgres
+    depends_on:
+      - postgres
+    ports:
+      - "3073:3073"
+    networks:
+      - ajaynet
+
+  frontend:
+    build:
+      context: ./Frontend
+    container_name: Frontend-job5
+    ports:
+      - "9013:80"
+    networks:
+      - ajaynet
+
+  hr_page:
+    build:
+      context: ./HR_Page
+    container_name: HR_page-job5
+    ports:
+      - "9014:80"
+    networks:
+      - ajaynet
+
+  offerletter:
+    build:
+      context: ./offerletter
+    container_name: offerletter-job5
+    ports:
+      - "9015:80"
+    networks:
+      - ajaynet
+
+volumes:
+  pgdata:
+
+networks:
+  ajaynet:
+
